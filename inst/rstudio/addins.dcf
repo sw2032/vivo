@@ -1,0 +1,14 @@
+Name: Hello World Dialog
+Description: A Simple Vivid Gizmo
+Binding: run_hello_world
+Interactive: false
+
+Name: Load Data From Package
+Description: Load Data From A Package
+Binding: run_package_data
+Interactive: false
+
+Name: Wrangle Data
+Description: Manipulate and Transform Data Frames
+Binding: run_wrangle_data
+Interactive: false

@@ -1,0 +1,66 @@
+
+
+
+vivid_server <- function(){
+
+  server <- function(input, output, session) {
+
+    .globals$vivid_server$child_queue$consumer$start()
+    .globals$remote_r$set_session(session)
+
+    session$userData$docs <- list()
+
+    session$userData$r_markdown <- list()
+
+    session$userData$r_output <- list()
+
+    server_documents(input, output, session)
+
+    server_rstudio(input, output, session)
+
+
+    observeEvent(input$interrupt_r, {
+      interrupt_r()
+    })
+
+    add_gizmo_server_hook(input, output, session, "gizmo_test","helloworld")
+
+    add_gizmo_server_hook(input, output, session, "gizdata","gizdata")
+
+    add_gizmo_server_hook(input, output, session, "wrangle_data","wrangle_data")
+
+    add_gizmo_server_hook(input, output, session, "scatter_3d","scatter_3d")
+
+    add_gizmo_server_hook(input, output, session, "menu_insert_markdown_block","markdown")
+
+    add_gizmo_server_hook(input, output, session, "dynamicui","dynamicui")
+
+    make_menu()
+    did <- add_new_document("Untitled")
+    set_active_document(did)
+  }
+  server
+}
+
+
+confirmDialog <- function(..., title="Message", callback=NULL, button_labels=c("Cancel","OK"), session = getDefaultReactiveDomain()){
+  uuid <- gen_uuid()
+  ns <- NS(uuid)
+  modal <- modalDialog(..., title=title, easyClose=FALSE, footer=tagList(
+    actionButton(ns("cancel"), button_labels[1]),
+    actionButton(ns("ok"), button_labels[2])
+  ))
+  # if(!is.null(callback)){
+  #   observeEvent(session$input[[ns("cancel")]], {
+  #     callback(button_labels[1])
+  #     #removeModal(session=session)
+  #   },
+  #   domain=session)
+  #   observeEvent(session$input[[ns("cancel")]], {
+  #     callback(button_labels[2])
+  #     #removeModal(session=session)
+  #   },
+  #   domain=session)
+  # }
+  showModal(modal, session=session)
+}
