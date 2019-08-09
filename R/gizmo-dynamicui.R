@@ -61,8 +61,8 @@ dynamicui_fun_param=list(
 )
 
 
-CANADA <- c()
-CANADA[['color']]<- list(
+dynamicui_color_param <- c()
+dynamicui_color_param[['color']]<- list(
   "COLOR"=structure(list(
     "COLORS"=structure(list(
       '"red"'=structure(list(),sticon=" fa fa-circle Ntagg-red ", dt="character" ),
@@ -72,7 +72,7 @@ CANADA[['color']]<- list(
     ),sttype="pkg-node", sticon="circle", stopened=TRUE )
   ),sttype="pkg-node", sticon="circle", stopened=TRUE )
 )
-CANADA[['fill']]<- list(
+dynamicui_color_param[['fill']]<- list(
   "FILL"=structure(list(
     "COLORS"=structure(list(
       '"red"'=structure(list(),sticon=" fa fa-circle Ntagg-red ", dt="character" ),
@@ -82,7 +82,7 @@ CANADA[['fill']]<- list(
     ),sttype="pkg-node", sticon="circle", stopened=TRUE )
   ),sttype="pkg-node", sticon="circle", stopened=TRUE )
 )
-CANADA[['linecolor']]<- list(
+dynamicui_color_param[['linecolor']]<- list(
   "LINECOLOR"=structure(list(
     "COLORS"=structure(list(
       '"red"'=structure(list(),sticon=" fa fa-circle Ntagg-red ", dt="character" ),
@@ -94,8 +94,8 @@ CANADA[['linecolor']]<- list(
 )
 
 
-ctrlJS <- function (...){
-  tags$i(
+dynamicui_dattype_fun <- function (...){
+  tags$div(
     shinyjs::inlineCSS(".no_checkbox>i.jstree-checkbox { display:none }"),
     shinyjs::inlineCSS(".fa-tag-integer { color: gold }"),
     shinyjs::inlineCSS(".fa-tag-numeric { color: darkorange }"),
@@ -112,7 +112,7 @@ ctrlJS <- function (...){
   )
 }
 
-ctrlA <- function (ns, ctrlname, ...){
+dynamicui_dropdown_fun <- function (ns, ctrlname, ...){
   shinyWidgets::dropdownButton(
     shinyTree::shinyTree(
       ns(ctrlname),
@@ -125,7 +125,7 @@ ctrlA <- function (ns, ctrlname, ...){
     icon = icon("gear"),
     label = textOutput(ns(paste0("lb",ctrlname)), inline = TRUE),
     inputId = ns(paste0("ii",ctrlname)),
-    tags$i(
+    tags$div(
       tags$br(),
       tags$i(class = "fa fa-box", "environment"),
       tags$i(class = "fa fa-tags", "data.frame"),
@@ -159,7 +159,7 @@ ctrlA <- function (ns, ctrlname, ...){
   )
 }
 
-ctrlKD <- function (ns, ctrlname, ...){
+dynamicui_dropdown2_fun <- function (ns, ctrlname, ...){
   shiny::column(3,shinyWidgets::dropdown(
     ...,
     circle = FALSE,
@@ -179,7 +179,7 @@ ctrlKD <- function (ns, ctrlname, ...){
 CtrlK <- function(ns){
   AA=list();
   for (region_property in names(dynamicui_fun_param)){
-    BB=tags$div(ctrlKD(ns,paste0(region_property,"-panel"), {
+    BB=tags$div(dynamicui_dropdown2_fun(ns,paste0(region_property,"-panel"), {
       CC=list(tags$div(checkboxInput(ns(region_property), toupper(region_property))));
       for (parameter in names(dynamicui_fun_param[[region_property]]) ){
         deflt <- attr(dynamicui_fun_param[[region_property]][[parameter]], 'deflt')
@@ -372,25 +372,25 @@ theme_choices <- function(){
 
 test_gizmo_dynamic_ui <- function(ns) {
   fluidPage(
-    ctrlJS(),
+    dynamicui_dattype_fun(),
     fluidRow(
-      shiny::column(6,shiny::column(10,ctrlA(ns,"datatreedf"),offset = 1)),
-      shiny::column(6,shiny::column(10,ctrlA(ns,"datatreept"),offset = 1))
+      shiny::column(6,shiny::column(10,dynamicui_dropdown_fun(ns,"datatreedf"),offset = 1)),
+      shiny::column(6,shiny::column(10,dynamicui_dropdown_fun(ns,"datatreept"),offset = 1))
     ),tags$br(),
     fluidRow(
-      shiny::column(6,shiny::column(10,ctrlA(ns,"treex"),offset = 1)),
-      shiny::column(6,shiny::column(10,ctrlA(ns,"treey"),offset = 1))
+      shiny::column(6,shiny::column(10,dynamicui_dropdown_fun(ns,"treex"),offset = 1)),
+      shiny::column(6,shiny::column(10,dynamicui_dropdown_fun(ns,"treey"),offset = 1))
     ),tags$br(),
     fluidRow(
-      shiny::column(3,ctrlA(ns,"treecolor")),
-      shiny::column(3,ctrlA(ns,"treefill")),
-      shiny::column(3,ctrlA(ns,"treesize"))
+      shiny::column(3,dynamicui_dropdown_fun(ns,"treecolor")),
+      shiny::column(3,dynamicui_dropdown_fun(ns,"treefill")),
+      shiny::column(3,dynamicui_dropdown_fun(ns,"treesize"))
     ),tags$br(),
     fluidRow(
-      shiny::column(2,ctrlA(ns,"treelinecolor")),
-      shiny::column(2,ctrlA(ns,"treefacet"),offset=4),
-      shiny::column(2,ctrlA(ns,"treeframe")),
-      shiny::column(2,ctrlA(ns,"treeids"))
+      shiny::column(2,dynamicui_dropdown_fun(ns,"treelinecolor")),
+      shiny::column(2,dynamicui_dropdown_fun(ns,"treefacet"),offset=4),
+      shiny::column(2,dynamicui_dropdown_fun(ns,"treeframe")),
+      shiny::column(2,dynamicui_dropdown_fun(ns,"treeids"))
     ),tags$br(),
     actionLink(ns("advancedmenu"), 'Advanced', icon = icon('caret-right'),
                onclick=paste0("
@@ -422,11 +422,11 @@ test_gizmo_dynamic_ui <- function(ns) {
     ),
     tags$div(
       fluidRow(
-        ctrlKD(ns,"debug-panel",
+        dynamicui_dropdown2_fun(ns,"debug-panel",
                radioButtons(ns("plotlyoverlay"), label=NULL, choices = c("plotly", "ggplot"), selected = "plotly", inline=TRUE),
                textAreaInput(ns("customized_code"), "CUSTOMIZED CODE", width='100%')
         ),
-        ctrlKD(ns,"reload-panel",
+        dynamicui_dropdown2_fun(ns,"reload-panel",
                actionButton(ns("reloaddatasets"), "Reload datasets"),
                uiOutput(ns(paste0("ic","reloaddatasets")), inline =TRUE) #icon("gear"),
         )
@@ -646,7 +646,7 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
       if (isTRUE(AA[['NA']]=='NA')){
         AA
       }else{
-        c(CANADA[[(if(substr(MEXICO,1,4)=="tree"){substr(MEXICO,5,1000)}else{MEXICO})]],AA)
+        c(dynamicui_color_param[[(if(substr(MEXICO,1,4)=="tree"){substr(MEXICO,5,1000)}else{MEXICO})]],AA)
       }
     })
 
