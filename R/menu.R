@@ -59,7 +59,11 @@ make_menu <- function(){
 
   add_menu_item("dynamicui",
                 "Dynamic UI",
-                "vivid_menu_vis")             
+                "vivid_menu_vis")
+
+  add_menu_item("input_string",
+                "Input String",
+                "vivid_menu_data")
 
   add_menu_item("newvdoc",
                 "New Document",

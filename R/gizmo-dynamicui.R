@@ -199,7 +199,7 @@ CtrlK <- function(ns){
 }
 
 
-extract_local2 <- function(datatreex) {
+dynamicui_dynamicui_extract_local_fun2_fun <- function(datatreex) {
   library(shinyTree)
   resu <- list()
   try(for (pkg in names(datatreex)) {
@@ -271,7 +271,7 @@ dynamicui_NAlist_fun <- function ( ){
   list("NA" = structure("NA",sttype='pkg-node',sticon = ' fa fa-warning'))
 }
 
-filter_pt <- function (original,x,y){
+dynamicui_filter_pt_fun <- function (original,x,y){
   if(!is.element('auto', original) & length(original) > 0) {
     original
   }else{
@@ -366,7 +366,7 @@ filter_dis <- function(resu, disabled=FALSE, fill=dynamicui_NAlist_fun()) {
   }
 }
 
-theme_choices <- function(){
+dynamicui_theme_choices_fun <- function(){
   list("theme_grey", "theme_gray", "theme_bw", "theme_linedraw", "theme_light", "theme_dark", "theme_minimal", "theme_classic", "theme_void", "theme_test")
 }
 
@@ -473,8 +473,8 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
   outputOptions(output, "datatreedf", suspendWhenHidden = FALSE)
   outputdatatreedf_old <- reactiveVal(datadfs())  #single selection ctrl
   observeEvent(input$datatreedf,{   #single selection
-    T <- extract_local2(input$datatreedf)
-    T2 <- extract_local2(outputdatatreedf_old())
+    T <- dynamicui_dynamicui_extract_local_fun2_fun(input$datatreedf)
+    T2 <- dynamicui_dynamicui_extract_local_fun2_fun(outputdatatreedf_old())
     if(length(T2)>1){
       outputdatatreedf_temp <- datadfs()
       outputdatatreedf_old(outputdatatreedf_temp)
@@ -501,10 +501,10 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
   })
   observeEvent(datadfs(),{outputdatatreedf_old(dynamicui_NAlist_fun())} ,ignoreNULL = FALSE)
   output$lbdatatreedf <- renderText(paste("DATA FRAME: ", {
-    #toStringB(extract_local2(outputdatatreedf_old()))
+    #toStringB(dynamicui_dynamicui_extract_local_fun2_fun(outputdatatreedf_old()))
     toStringB(plotdf_())
   }))
-  plotdf <- reactive( format_local2(extract_local2(outputdatatreedf_old())) )
+  plotdf <- reactive( format_local2(dynamicui_dynamicui_extract_local_fun2_fun(outputdatatreedf_old())) )
   plotdf_ <- reactive(toString(plotdf()))
 
 
@@ -545,7 +545,7 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
   output$lbdatatreept <- renderText(paste("PLOT TYPE: ", {
     toStringB(plottype())
   }))
-  plottype <- reactive(  filter_pt(shinyTree::get_selected(outputdatatreept_old(), format = c("names")),extract_local(inputdata[['treex']]()),extract_local(inputdata[['treey']]())))
+  plottype <- reactive(  dynamicui_filter_pt_fun(shinyTree::get_selected(outputdatatreept_old(), format = c("names")),dynamicui_extract_local_fun(inputdata[['treex']]()),dynamicui_extract_local_fun(inputdata[['treey']]())))
   plottype_ <- reactive(toString(pt_autofree(plottype())))
 
 
@@ -561,7 +561,7 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
   plot__ <- reactiveValues() #col name only
 
 
-  extract_local <- function(datatreez, condt = datasets() ) { #second parameter for below CtrlN only
+  dynamicui_extract_local_fun <- function(datatreez, condt = datasets() ) { #second parameter for below CtrlN only
     resu <- list()
     try(for (pkg in names(datatreez)) {
       for (dd in names(datatreez[[pkg]])) {
@@ -642,7 +642,7 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
     dataseh[[MEXICO]] <- reactive( datasets() )
     datatreedf_oh[[MEXICO]] <- reactive( outputdatatreedf_old() )
     inputdft[[MEXICO]] <- reactive({
-      AA <- filter_bd(dataseh[[MEXICO]](), extract_local2(datatreedf_oh[[MEXICO]]()))
+      AA <- filter_bd(dataseh[[MEXICO]](), dynamicui_dynamicui_extract_local_fun2_fun(datatreedf_oh[[MEXICO]]()))
       if (isTRUE(AA[['NA']]=='NA')){
         AA
       }else{
@@ -660,8 +660,8 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
       output_old[[MEXICO]]
     })
     observeEvent(input[[MEXICO]],{
-      T <- extract_local(input[[MEXICO]], inputdft[[MEXICO]]() )
-      T2 <- extract_local(output_old[[MEXICO]], inputdft[[MEXICO]]() )
+      T <- dynamicui_extract_local_fun(input[[MEXICO]], inputdft[[MEXICO]]() )
+      T2 <- dynamicui_extract_local_fun(output_old[[MEXICO]], inputdft[[MEXICO]]() )
       if(length(T2)>1){
         temp <- filter_dis(inputdft[[MEXICO]](),FALSE)
         output_old[[MEXICO]]<-(temp)
@@ -688,7 +688,7 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
     } ,ignoreNULL = FALSE)
     observeEvent(plotdf(),{output_old[[MEXICO]]<-(dynamicui_NAlist_fun())} ,ignoreNULL = FALSE)
 
-    plot[[MEXICO]] <- reactive(tsC(format_local(extract_local(inputdata[[MEXICO]](), inputdft[[MEXICO]]() )) ,ptdisable[[MEXICO]] ))
+    plot[[MEXICO]] <- reactive(tsC(format_local(dynamicui_extract_local_fun(inputdata[[MEXICO]](), inputdft[[MEXICO]]() )) ,ptdisable[[MEXICO]] ))
     plot_[[MEXICO]] <- reactive({
       if(!isTRUE(is.element(attr(plot[[MEXICO]]()[[1]],'pkg'), names(datasets())   ))){
         toString( get_col(plot[[MEXICO]]()))
