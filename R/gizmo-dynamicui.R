@@ -1,4 +1,4 @@
-parameters_list=list(
+dynamicui_fun_param=list(
   "ggplot"=structure(list(
     "ggplot_data"=structure("ggplot_data",nme='data',deflt="")
   ),ctrl8=c('auto','area','bar','bar2','box','box2','grid','histogram','histogram2','line','scatter')),
@@ -119,7 +119,7 @@ ctrlA <- function (ns, ctrlname, ...){
       checkbox = TRUE,
       search = TRUE#,
       #types = "{ 'pkg-node': {'a_attr' : { 'style' : 'color:black' , class: 'no_checkbox'}},
-			#	   'df-node': {'a_attr' : { 'style' : 'color:black' , class: 'no_checkbox'}}  }"
+      #	   'df-node': {'a_attr' : { 'style' : 'color:black' , class: 'no_checkbox'}}  }"
     ),
     circle = FALSE,
     icon = icon("gear"),
@@ -178,15 +178,15 @@ ctrlKD <- function (ns, ctrlname, ...){
 
 CtrlK <- function(ns){
   AA=list();
-  for (region_property in names(parameters_list)){
+  for (region_property in names(dynamicui_fun_param)){
     BB=tags$div(ctrlKD(ns,paste0(region_property,"-panel"), {
       CC=list(tags$div(checkboxInput(ns(region_property), toupper(region_property))));
-      for (parameter in names(parameters_list[[region_property]]) ){
-        deflt <- attr(parameters_list[[region_property]][[parameter]], 'deflt')
-        nme <- attr(parameters_list[[region_property]][[parameter]], 'nme')
-        tp <- attr(parameters_list[[region_property]][[parameter]], 'tp')
-        fun <- attr(parameters_list[[region_property]][[parameter]], 'fun')
-        alwyshow <- attr(parameters_list[[region_property]][[parameter]], 'alwyshow')
+      for (parameter in names(dynamicui_fun_param[[region_property]]) ){
+        deflt <- attr(dynamicui_fun_param[[region_property]][[parameter]], 'deflt')
+        nme <- attr(dynamicui_fun_param[[region_property]][[parameter]], 'nme')
+        tp <- attr(dynamicui_fun_param[[region_property]][[parameter]], 'tp')
+        fun <- attr(dynamicui_fun_param[[region_property]][[parameter]], 'fun')
+        alwyshow <- attr(dynamicui_fun_param[[region_property]][[parameter]], 'alwyshow')
         DD=tags$div(paste0(nme,' ',tp,' ',deflt,' ',alwyshow),
                     textInput(ns(parameter), toupper(parameter), value = deflt))
         CC=c(CC,list(tags$div(DD)))
@@ -801,7 +801,7 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
   ctrl3 <- function (tocheckbox){
     output[[paste0('ic',tocheckbox, '-panel')]]<-renderPrint({
       apick <- FALSE
-      ctrl8=attr(parameters_list[[tocheckbox]], 'ctrl8')
+      ctrl8=attr(dynamicui_fun_param[[tocheckbox]], 'ctrl8')
       if(!is.null(ctrl8)){
         if(isTRUE(nchar(plottype_())>0)){
           if( is.element(plottype_(),c(ctrl8)) ){
@@ -821,7 +821,7 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
   }
 
   lapply(
-    X = names(parameters_list),
+    X = names(dynamicui_fun_param),
     FUN = function(region_property){
       ctrl3(region_property)
     }
@@ -840,9 +840,9 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
   }
 
   lapply(
-    X = names(parameters_list),
+    X = names(dynamicui_fun_param),
     FUN = function(region_property){
-      ctrl8=attr(parameters_list[[region_property]], 'ctrl8')
+      ctrl8=attr(dynamicui_fun_param[[region_property]], 'ctrl8')
       if(!is.null(ctrl8)){
         ctrl7(ctrl8,region_property)
       }
@@ -887,7 +887,7 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
   get_panels <- function (){
     result <- ""
     first_parameter <- TRUE
-    for (region_property in names(parameters_list) ){
+    for (region_property in names(dynamicui_fun_param) ){
       panel <- get_panel(region_property)
       if(isTRUE(nchar(panel)>0) ){
         if(!first_parameter){
@@ -904,7 +904,7 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
   get_panel <- function (region_property){
     result <- "";
     if(isTRUE(input[[region_property]]) ){
-      alt <- attr(parameters_list[[region_property]],"alt")
+      alt <- attr(dynamicui_fun_param[[region_property]],"alt")
       if(is.null( alt )){
         result <- paste0(region_property,"(")
       }else{
@@ -912,13 +912,13 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
       }
       {
         first_parameter <- TRUE
-        for (parameter in names(parameters_list[[region_property]]) ){
+        for (parameter in names(dynamicui_fun_param[[region_property]]) ){
           user_input <- input[[parameter]]
-          deflt <- attr(parameters_list[[region_property]][[parameter]], 'deflt')
-          nme <- attr(parameters_list[[region_property]][[parameter]], 'nme')
-          tp <- attr(parameters_list[[region_property]][[parameter]], 'tp')
-          fun <- attr(parameters_list[[region_property]][[parameter]], 'fun')
-          alwyshow <- attr(parameters_list[[region_property]][[parameter]], 'alwyshow')
+          deflt <- attr(dynamicui_fun_param[[region_property]][[parameter]], 'deflt')
+          nme <- attr(dynamicui_fun_param[[region_property]][[parameter]], 'nme')
+          tp <- attr(dynamicui_fun_param[[region_property]][[parameter]], 'tp')
+          fun <- attr(dynamicui_fun_param[[region_property]][[parameter]], 'fun')
+          alwyshow <- attr(dynamicui_fun_param[[region_property]][[parameter]], 'alwyshow')
           if (isTRUE(fun)){
             result <- paste0(user_input,"(")
             first_parameter <- TRUE
