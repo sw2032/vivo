@@ -267,7 +267,7 @@ NApt <- function(auto=FALSE){
 }
 
 
-NAlist <- function ( ){
+dynamicui_NAlist_fun <- function ( ){
   list("NA" = structure("NA",sttype='pkg-node',sticon = ' fa fa-warning'))
 }
 
@@ -358,7 +358,7 @@ get_col <- function(resu) {
   result
 } #result=sapply(c(resu), FUN=function(res){attr(res,"col")})
 
-filter_dis <- function(resu, disabled=FALSE, fill=NAlist()) {
+filter_dis <- function(resu, disabled=FALSE, fill=dynamicui_NAlist_fun()) {
   if(disabled){
     fill
   }else{
@@ -448,8 +448,8 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
     })
   }
 
-  datasets <- reactiveVal(NAlist())
-  datadfs  <- reactiveVal(NAlist())
+  datasets <- reactiveVal(dynamicui_NAlist_fun())
+  datadfs  <- reactiveVal(dynamicui_NAlist_fun())
 
   iccreloaddatasets  <- reactiveVal('time')
 
@@ -499,7 +499,7 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
       outputdatatreedf_old(datadfs())
     }
   })
-  observeEvent(datadfs(),{outputdatatreedf_old(NAlist())} ,ignoreNULL = FALSE)
+  observeEvent(datadfs(),{outputdatatreedf_old(dynamicui_NAlist_fun())} ,ignoreNULL = FALSE)
   output$lbdatatreedf <- renderText(paste("DATA FRAME: ", {
     #toStringB(extract_local2(outputdatatreedf_old()))
     toStringB(plotdf_())
@@ -599,7 +599,7 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
       }
     }
     if(is.null(Tree0s)){
-      NAlist()
+      dynamicui_NAlist_fun()
     } else {
       Tree0s
     }
@@ -651,7 +651,7 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
     })
 
     ptdisable[[MEXICO]] <- FALSE
-    output_old[[MEXICO]] <- NAlist()
+    output_old[[MEXICO]] <- dynamicui_NAlist_fun()
     inputdata[[MEXICO]] <- reactive(filter_dis(output_old[[MEXICO]],ptdisable[[MEXICO]]))
     output[[MEXICO]] <- shinyTree::renderTree({
       output_old[[MEXICO]] <- filter_dis(
@@ -686,7 +686,7 @@ test_gizmo_dynamic_server <- function(input, output, session, state = NULL) {
         output_old[[MEXICO]]<-(filter_dis(inputdft[[MEXICO]](),FALSE))
       }
     } ,ignoreNULL = FALSE)
-    observeEvent(plotdf(),{output_old[[MEXICO]]<-(NAlist())} ,ignoreNULL = FALSE)
+    observeEvent(plotdf(),{output_old[[MEXICO]]<-(dynamicui_NAlist_fun())} ,ignoreNULL = FALSE)
 
     plot[[MEXICO]] <- reactive(tsC(format_local(extract_local(inputdata[[MEXICO]](), inputdft[[MEXICO]]() )) ,ptdisable[[MEXICO]] ))
     plot_[[MEXICO]] <- reactive({
