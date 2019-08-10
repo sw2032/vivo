@@ -21,8 +21,12 @@ gizmo_datatables_server <- function(input, output, session, state=NULL){
   }
 
   observeEvent(input$datatables_object,{
-    if( isTRUE(stringr:::str_length(input[["datatables_object"]])>0) & exists( input[["datatables_object"]] ) ){
-      updateTextInput(session, "datatables", value="Found")
+    if( isTRUE(stringr:::str_length(input[["datatables_object"]])>0) && exists( input[["datatables_object"]] ) ){
+		if(length(dim(.GlobalEnv[[ input[["datatables_object"]] ]])) == 2){
+			updateTextInput(session, "datatables", value="Found")
+		}else{
+			updateTextInput(session, "datatables", value="'data' must be 2-dimensional (e.g. data frame or matrix)")
+		}
     }else{
       updateTextInput(session, "datatables", value="Not Found")
     }
@@ -31,10 +35,14 @@ gizmo_datatables_server <- function(input, output, session, state=NULL){
 
 
   output$datatables_table = DT::renderDT({
-    if( isTRUE(stringr:::str_length(input[["datatables_object"]])>0) & exists( input[["datatables_object"]] ) ){
-      .GlobalEnv[[ input[["datatables_object"]] ]]
+    if( isTRUE(stringr:::str_length(input[["datatables_object"]])>0) && exists( input[["datatables_object"]] ) ){
+		if(length(dim(.GlobalEnv[[ input[["datatables_object"]] ]])) == 2){
+			.GlobalEnv[[ input[["datatables_object"]] ]]
+		}else{
+			NULL
+		}
     }else{
-      NULL
+      NULL #.GlobalEnv[[ "ThisObjectDoesNotExist" ]]
     }
   }, options = list(lengthChange = FALSE, scrollX = TRUE) )
 
@@ -42,7 +50,7 @@ gizmo_datatables_server <- function(input, output, session, state=NULL){
   txt_react <- reactive({
     txt <- paste0("<!-- user may enter a string into global environment -->", "\n",
                   "```{r} \n",
-                  input[["datatables_object"]]," <- ", "'", input[["datatables"]] , "'" , "\n",
+                  #input[["datatables_object"]]," <- ", "'", input[["datatables"]] , "'" , "\n",
                   "```\n")
     txt
   })
