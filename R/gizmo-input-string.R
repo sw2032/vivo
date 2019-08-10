@@ -1,8 +1,10 @@
 
 gizmo_input_string_ui <- function(ns){
-  fluidRow(
-    column(4,textInput(ns("input_string_name"), "string name","John")),
-    column(4,textInput(ns("input_string"), "string","My name is John"))
+  fluidPage(h4("Input String: Enter a string into global environment"),
+            fluidRow(
+              column(4,textInput(ns("input_string_name"), "string name","John")),
+              column(4,textInput(ns("input_string"), "string","My name is Johnny"))
+            )
   )
 }
 
@@ -18,7 +20,8 @@ gizmo_input_string_server <- function(input, output, session, state=NULL){
 
   # RMarkdown Code
   txt_react <- reactive({
-    txt <- paste0("```{r} \n",
+    txt <- paste0("<!-- user may enter a string into global environment -->", "\n",
+                  "```{r} \n",
                   input[["input_string_name"]]," <- ", "'", input[["input_string"]] , "'" , "\n",
                   "```\n")
     txt
@@ -29,9 +32,10 @@ gizmo_input_string_server <- function(input, output, session, state=NULL){
     list(
       input_string=input[["input_string"]],
       input_string_name=input[["input_string_name"]],
-      `__version__` = "1.0"
+      `__version__` = "0.0.1"
     )
   }
+
   list(
     code=txt_react,
     get_state=get_state
@@ -46,7 +50,8 @@ gizmo_input_string_server <- function(input, output, session, state=NULL){
   opts=list()
 )
 
-#' run_input_string with run_standalone
+
+#' run_gizmo_input_string with run_standalone
 #'
 #' @export
-run_input_string <- function() run_standalone("input_string")
+run_gizmo_input_string <- function() run_standalone("input_string")

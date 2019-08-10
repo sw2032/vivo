@@ -65,6 +65,10 @@ make_menu <- function(){
                 "Input String",
                 "vivid_menu_data")
 
+  add_menu_item("input_number",
+                "Input Number",
+                "vivid_menu_data")
+
   add_menu_item("newvdoc",
                 "New Document",
                 "vivid_menu_session")

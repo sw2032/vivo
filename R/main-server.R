@@ -37,6 +37,8 @@ vivid_server <- function(){
 
     add_gizmo_server_hook(input, output, session, "input_string","input_string")
 
+    add_gizmo_server_hook(input, output, session, "input_number","input_number")
+
     make_menu()
     did <- add_new_document("Untitled")
     set_active_document(did)

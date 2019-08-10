@@ -1,9 +1,9 @@
 
-test_gizmo_ui <- function(ns){
+gizmo_helloworld_ui <- function(ns){
   textInput(ns("helloworld"), "input")
 }
 
-test_gizmo_server <- function(input, output, session, state=NULL){
+gizmo_helloworld_server <- function(input, output, session, state=NULL){
 
   # Restore UI state
   if (!is.null(state)) {
@@ -33,11 +33,13 @@ test_gizmo_server <- function(input, output, session, state=NULL){
 
 
 .globals$gizmos$helloworld <- list(
-  ui=test_gizmo_ui,
-  server=test_gizmo_server,
+  ui=gizmo_helloworld_ui,
+  server=gizmo_helloworld_server,
   library="vivid",
   opts=list()
 )
 
-
-run_hello_world <- function() run_standalone("helloworld")
+#' run_gizmo_helloworld with run_standalone
+#'
+#' @export
+run_gizmo_helloworld <- function() run_standalone("helloworld")
