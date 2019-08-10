@@ -77,6 +77,13 @@ run_chunk <- function(chunk,  envir){
 #   r
 # }
 
+
+#' parse_chunk_r_code
+#' 
+#' function parse_chunk_r_code
+#' 
+#' @export
+
 parse_chunk_r_code <- function(chunk){
   res <- list()
   lines <- knitr:::split_lines(chunk)

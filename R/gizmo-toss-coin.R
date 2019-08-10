@@ -1,9 +1,9 @@
 
 gizmo_toss_coin_ui <- function(ns){
-  fluidPage(h4("Input String: Enter a string into global environment"),
+  fluidPage(h4("Toss Coin: Use sample() to simulate"),
             fluidRow(
-              column(4,textInput(ns("toss_coin_name"), "string name","John")),
-              column(4,textInput(ns("toss_coin"), "string","My name is Johnny"))
+              column(4,textInput(ns("toss_coin_name"), "variable name", "coin_toss_result")),
+              column(4,numericInput(ns("toss_coin"), "tossed how many times ...", value =5, min =0, max =100000, step =1))
             )
   )
 }
@@ -21,7 +21,8 @@ gizmo_toss_coin_server <- function(input, output, session, state=NULL){
   # RMarkdown Code
   txt_react <- reactive({
     txt <- paste0("```{r} \n",
-                  input[["toss_coin_name"]]," <- ", "'", input[["toss_coin"]] , "'" , "\n",
+                  input[["toss_coin_name"]]," <- ", "sample(c('Head', 'Tail'), ", input[["toss_coin"]] , ", replace=T)" , "\n",
+				  "print(", input[["toss_coin_name"]], ")\n",
                   "```\n")
     txt
   })

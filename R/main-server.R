@@ -44,6 +44,10 @@ vivid_server <- function(){
     add_gizmo_server_hook(input, output, session, "datatables","datatables")
 	
     add_gizmo_server_hook(input, output, session, "export_csv","export_csv")
+	
+	add_gizmo_server_hook(input, output, session, "toss_coin","toss_coin")
+	
+	add_gizmo_server_hook(input, output, session, "roll_dice","roll_dice")
 
     make_menu()
     did <- add_new_document("Untitled")
