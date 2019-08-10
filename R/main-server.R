@@ -23,7 +23,6 @@ vivid_server <- function(){
       interrupt_r()
     })
 
-    add_gizmo_server_hook(input, output, session, "gizmo_test","helloworld")
 
     add_gizmo_server_hook(input, output, session, "wrangle_data","wrangle_data")
 
@@ -50,6 +49,10 @@ vivid_server <- function(){
 	add_gizmo_server_hook(input, output, session, "toss_coin","toss_coin")
 	
 	add_gizmo_server_hook(input, output, session, "roll_dice","roll_dice")
+	
+    add_gizmo_server_hook(input, output, session, "helloworld","helloworld")
+	
+	add_gizmo_server_hook(input, output, session, "stats_mean","stats_mean")
 
     make_menu()
     did <- add_new_document("Untitled")

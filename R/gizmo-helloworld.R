@@ -1,6 +1,8 @@
 
 gizmo_helloworld_ui <- function(ns){
-  textInput(ns("helloworld"), "input")
+  fluidPage(h4("HelloWorld: A Gizmo Test"),
+    textInput(ns("helloworld"), "input")
+  )
 }
 
 gizmo_helloworld_server <- function(input, output, session, state=NULL){

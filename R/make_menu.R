@@ -15,10 +15,6 @@ make_menu <- function(){
                 "R Markdown Block",
                 "vivid_menu_code")
 
-  add_menu_item("gizmo_test",
-                "Gizmo Test",
-                "vivid_menu_analysis")
-
   add_menu_item("scatter_3d",
                 "3D Scatter Plot",
                 "vivid_menu_vis")
@@ -59,6 +55,17 @@ make_menu <- function(){
   add_menu_item("roll_dice",
                 "Roll Dice",
                 "vivid_menu_data")
+				
+  ########ANALYSIS I/O########	
+				
+  add_menu_item("helloworld",
+                "HelloWorld",
+                "vivid_menu_analysis")
+				
+  add_menu_item("stats_mean",
+                "Mean",
+                "vivid_menu_analysis")
+				
   ########DOCS I/O########
   add_menu_item("newvdoc",
                 "New Document",
