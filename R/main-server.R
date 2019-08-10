@@ -25,8 +25,6 @@ vivid_server <- function(){
 
     add_gizmo_server_hook(input, output, session, "gizmo_test","helloworld")
 
-    add_gizmo_server_hook(input, output, session, "gizdata","gizdata")
-
     add_gizmo_server_hook(input, output, session, "wrangle_data","wrangle_data")
 
     add_gizmo_server_hook(input, output, session, "scatter_3d","scatter_3d")
@@ -38,6 +36,10 @@ vivid_server <- function(){
     add_gizmo_server_hook(input, output, session, "input_string","input_string")
 
     add_gizmo_server_hook(input, output, session, "input_number","input_number")
+
+    add_gizmo_server_hook(input, output, session, "load_csv","load_csv")
+
+    add_gizmo_server_hook(input, output, session, "load_package_data","load_package_data")
 
     make_menu()
     did <- add_new_document("Untitled")

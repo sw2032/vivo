@@ -15,10 +15,6 @@ make_menu <- function(){
                 "Gizmo Test",
                 "vivid_menu_analysis")
 
-  add_menu_item("gizdata",
-                "Load Data From Package",
-                "vivid_menu_data")
-
   add_menu_item("scatter_3d",
                 "3D Scatter Plot",
                 "vivid_menu_vis")
@@ -27,6 +23,7 @@ make_menu <- function(){
                 "Dynamic UI",
                 "vivid_menu_vis")
 
+  ########DATA I/O########
   add_menu_item("input_string",
                 "Input String",
                 "vivid_menu_data")
@@ -35,6 +32,15 @@ make_menu <- function(){
                 "Input Number",
                 "vivid_menu_data")
 
+  add_menu_item("load_csv",
+                "Load csv",
+                "vivid_menu_data")
+
+  add_menu_item("load_package_data",
+                "Load Package Data",
+                "vivid_menu_data")
+
+  ########DOCS I/O########
   add_menu_item("newvdoc",
                 "New Document",
                 "vivid_menu_session")

@@ -1,15 +1,15 @@
-gizmo_package_data_ui <- function(ns) {
+gizmo_load_package_data_ui <- function(ns) {
   fluidPage(h4("Data: load data from package"),
             fluidRow(
               column(4,
-                selectInput(
-                  ns("selectpkg"),
-                  "Package",
-                  unique(as.data.frame(data(
-                    package = .packages(all.available = TRUE)
-                  )$results)$Package),
-                  selected = "datasets"
-                )
+                     selectInput(
+                       ns("selectpkg"),
+                       "Package",
+                       unique(as.data.frame(data(
+                         package = .packages(all.available = TRUE)
+                       )$results)$Package),
+                       selected = "datasets"
+                     )
               ),
               column(4,
                      selectInput(
@@ -25,7 +25,7 @@ gizmo_package_data_ui <- function(ns) {
 }
 
 
-gizmo_package_data_server <- function(input, output, session, state = NULL) {
+gizmo_load_package_data_server <- function(input, output, session, state = NULL) {
 
   observeEvent(input[["selectpkg"]], {
     updateSelectInput(session, "selectdat",
@@ -80,14 +80,14 @@ gizmo_package_data_server <- function(input, output, session, state = NULL) {
 }
 
 
-.globals$gizmos$gizdata <- list(
-  ui = gizmo_package_data_ui,
-  server = gizmo_package_data_server,
+.globals$gizmos$load_package_data <- list(
+  ui = gizmo_load_package_data_ui,
+  server = gizmo_load_package_data_server,
   library = "vivid",
   opts = list()
 )
 
-#' run_gizmo_package_data with run_standalone
+#' run_gizmo_load_package_data with run_standalone
 #'
 #' @export
-run_gizmo_package_data <- function() run_standalone("gizdata")
+run_gizmo_load_package_data <- function() run_standalone("gizdata")
