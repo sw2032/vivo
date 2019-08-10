@@ -7,7 +7,7 @@ make_menu <- function(){
   add_menu("vivid_menu_analysis","Analysis")
   add_menu("vivid_menu_vis","Visualize")
 
-  add_menu_item("menu_insert_markdown_block",
+  add_menu_item("markdown_block",
                 "Insert Markdown Block",
                 "vivid_menu_code")
 
