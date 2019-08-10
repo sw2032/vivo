@@ -226,10 +226,12 @@ RemoteR <- R6::R6Class(
 
 vivid_queue <- function(...){
   q <- ipc::queue(...)
-
 }
 
 
+#' QueueLinkedR
+#'
+#' @export
 QueueLinkedR <- R6::R6Class(
   "QueueLinkedR",
   private = list(

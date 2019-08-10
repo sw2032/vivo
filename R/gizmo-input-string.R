@@ -1,8 +1,8 @@
 
 gizmo_input_string_ui <- function(ns){
   fluidRow(
-    column(4,textInput(ns("input_string_name"), "input string name","John")),
-    column(4,textInput(ns("input_string"), "input string","My name is John"))
+    column(4,textInput(ns("input_string_name"), "string name","John")),
+    column(4,textInput(ns("input_string"), "string","My name is John"))
   )
 }
 
@@ -18,7 +18,9 @@ gizmo_input_string_server <- function(input, output, session, state=NULL){
 
   # RMarkdown Code
   txt_react <- reactive({
-    txt <- paste0(input[["input_string_name"]],"<-", "'", input[["input_string"]] , "'" )
+    txt <- paste0("```{r} \n",
+                  input[["input_string_name"]]," <- ", "'", input[["input_string"]] , "'" , "\n",
+                  "```\n")
     txt
   })
 
@@ -44,5 +46,7 @@ gizmo_input_string_server <- function(input, output, session, state=NULL){
   opts=list()
 )
 
-
+#' run_input_string with run_standalone
+#'
+#' @export
 run_input_string <- function() run_standalone("input_string")

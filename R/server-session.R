@@ -29,18 +29,27 @@ stop_vivid_child_server <- function(){
   child_queue()$producer$fireEval(shiny::stopApp())
 }
 
+#' child_queue
+#'
+#' @export
 child_queue <- function(queue){
   if(!missing(queue))
     .globals$vivid_server$child_queue <- queue
   .globals$vivid_server$child_queue
 }
 
+#' parent_queue
+#'
+#' @export
 parent_queue <- function(queue){
   if(!missing(queue))
     .globals$vivid_server$parent_queue <- queue
   .globals$vivid_server$parent_queue
 }
 
+#' remote_r
+#'
+#' @export
 remote_r <- function(rr){
   if(!missing(rr))
     .globals$remote_r <- rr
