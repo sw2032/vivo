@@ -1,5 +1,7 @@
 
-
+#' launch_gizmo_local
+#'
+#' @export
 launch_gizmo_local <- function(gizmo,
                                gizmo_name,
   state=NULL,
@@ -92,6 +94,10 @@ launch_gizmo_local <- function(gizmo,
   runApp(shinyApp(ui, server), launch.browser = web_browser)
 }
 
+
+#' launch_gizmo_remote
+#'
+#' @export
 launch_gizmo_remote <- function(gizmo,
                                 gizmo_name,
                                state=NULL,
@@ -122,6 +128,9 @@ launch_gizmo_remote <- function(gizmo,
   )
 }
 
+#' run_standalone
+#'
+#' @export
 run_standalone <- function(gizmo_name, remote=TRUE){
   launch <- if(remote) launch_gizmo_remote else launch_gizmo_local
   launch(

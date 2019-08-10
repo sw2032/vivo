@@ -1,0 +1,6 @@
+
+Listening on http://127.0.0.1:3655
+[1] 990
+Error in unserialize(node$con) : error reading from connection
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+Execution halted
