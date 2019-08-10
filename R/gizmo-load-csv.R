@@ -1,9 +1,9 @@
 
 gizmo_load_csv_ui <- function(ns){
-  fluidPage(h4("Load csv: Enter a csv into global environment"),
+  fluidPage(h4("Load csv: Load a csv into global environment"),
             fluidRow(
               column(4,textInput(ns("load_csv_name"), "csv name","biostats")),
-              column(8,textInput(ns("load_csv"), "csv url","https://people.sc.fsu.edu/~jburkardt/data/csv/biostats.csv"))
+              column(8,textInput(ns("load_csv"), "csv url","https://people.sc.fsu.edu/~jburkardt/data/csv/biostats.csv", width = "100%"))
             )
   )
 }
