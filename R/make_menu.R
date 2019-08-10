@@ -43,6 +43,10 @@ make_menu <- function(){
   add_menu_item("datatables",
                 "DataTables",
                 "vivid_menu_data")
+				
+  add_menu_item("export_csv",
+                "Export csv",
+                "vivid_menu_data")
 
   ########DOCS I/O########
   add_menu_item("newvdoc",
