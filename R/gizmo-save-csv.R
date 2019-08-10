@@ -1,6 +1,6 @@
 
 gizmo_export_csv_ui <- function(ns){
-  fluidPage(h4("Export csv: Export a csv into global environment"),
+  fluidPage(h4("Export csv: Export a csv to a file"),
             fluidRow(
               column(4,textInput(ns("export_csv_name"), "object to be exported","biostats")),
               column(8, shinyFiles::shinySaveButton(ns("export_csv_local"), "Export to ... (Local)", "Export to ...", filetype = list(csv="csv", rds="rds") ) ),
