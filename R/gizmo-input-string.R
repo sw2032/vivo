@@ -1,6 +1,9 @@
 
 gizmo_input_string_ui <- function(ns){
-  textInput(ns("input_string"), "input")
+  fluidRow(
+    column(4,textInput(ns("input_string_name"), "input string name","John")),
+    column(4,textInput(ns("input_string"), "input string","My name is John"))
+  )
 }
 
 gizmo_input_string_server <- function(input, output, session, state=NULL){
@@ -8,13 +11,14 @@ gizmo_input_string_server <- function(input, output, session, state=NULL){
   # Restore UI state
   if (!is.null(state)) {
     session$onFlushed(function() {
+      updateTextInput(session, "input_string_name", value=state$input_string_name)
       updateTextInput(session, "input_string", value=state$input_string)
     })
   }
 
   # RMarkdown Code
   txt_react <- reactive({
-    txt <- paste0("## ", input[["input_string"]])
+    txt <- paste0(input[["input_string_name"]],"<-", "'", input[["input_string"]] , "'" )
     txt
   })
 
@@ -22,6 +26,7 @@ gizmo_input_string_server <- function(input, output, session, state=NULL){
   get_state <- function(){
     list(
       input_string=input[["input_string"]],
+      input_string_name=input[["input_string_name"]],
       `__version__` = "1.0"
     )
   }
