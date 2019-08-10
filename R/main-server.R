@@ -30,6 +30,8 @@ vivid_server <- function(){
     add_gizmo_server_hook(input, output, session, "scatter_3d","scatter_3d")
 
     add_gizmo_server_hook(input, output, session, "markdown_block","markdown_block")
+	
+	add_gizmo_server_hook(input, output, session, "script_block","script_block")
 
     add_gizmo_server_hook(input, output, session, "dynamicui","dynamicui")
 

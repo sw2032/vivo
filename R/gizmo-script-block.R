@@ -1,8 +1,8 @@
-gizmo_markdown_block_ui <- function(ns){
+gizmo_script_block_ui <- function(ns){
   tagAppendAttributes(
     textAreaInput(
       ns("markdown"),
-      'Enter R Markdown code ...',
+      'Enter R Script code ...',
       width="100%",
       height="200px",
       resize="vertical"
@@ -11,9 +11,11 @@ gizmo_markdown_block_ui <- function(ns){
   )
 }
 
-gizmo_markdown_block_server <- function(input, output, session, state=NULL){
+gizmo_script_block_server <- function(input, output, session, state=NULL){
   txt_react <- reactive({
-    txt <- input[["markdown"]]
+    txt <- paste0("```{r} \n",
+                  input[["markdown"]] , "\n",
+                  "```\n")
     txt
   })
 
@@ -36,15 +38,15 @@ gizmo_markdown_block_server <- function(input, output, session, state=NULL){
 }
 
 
-.globals$gizmos$markdown_block <- list(
-  ui=gizmo_markdown_block_ui,
-  server=gizmo_markdown_block_server,
+.globals$gizmos$script_block <- list(
+  ui=gizmo_script_block_ui,
+  server=gizmo_script_block_server,
   library="vivid",
   opts=list()
 )
 
 
-#' run_gizmo_markdown_block with run_standalone
+#' run_gizmo_script_block with run_standalone
 #'
 #' @export
-run_gizmo_markdown_block <- function() run_standalone("markdown_block")
+run_gizmo_script_block <- function() run_standalone("script_block")

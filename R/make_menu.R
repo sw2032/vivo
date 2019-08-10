@@ -5,10 +5,14 @@ make_menu <- function(){
   add_menu("vivid_menu_code","Code")
   add_menu("vivid_menu_data","Data")
   add_menu("vivid_menu_analysis","Analysis")
-  add_menu("vivid_menu_vis","Visualize")
+  add_menu("vivid_menu_vis","View")
 
+  add_menu_item("script_block",
+                "R Script Block",
+                "vivid_menu_code")
+				
   add_menu_item("markdown_block",
-                "Insert Markdown Block",
+                "R Markdown Block",
                 "vivid_menu_code")
 
   add_menu_item("gizmo_test",
