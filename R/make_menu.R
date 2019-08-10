@@ -40,6 +40,10 @@ make_menu <- function(){
                 "Load Package Data",
                 "vivid_menu_data")
 
+  add_menu_item("datatables",
+                "DataTables",
+                "vivid_menu_data")
+
   ########DOCS I/O########
   add_menu_item("newvdoc",
                 "New Document",

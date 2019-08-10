@@ -22,7 +22,7 @@ gizmo_helloworld_server <- function(input, output, session, state=NULL){
   get_state <- function(){
     list(
       helloworld=input[["helloworld"]],
-      `__version__` = "1.0"
+      `__version__` = "0.0.1"
     )
   }
   list(

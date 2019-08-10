@@ -57,7 +57,7 @@ gizmo_load_package_data_server <- function(input, output, session, state = NULL)
     list(selectpkg = input[["selectpkg"]],
          selectdat = input[["selectdat"]],
          renameas = input[["renameas"]],
-         `__version__` = "0.1")
+         `__version__` = "0.0.1")
   }
 
   if (!is.null(state)) {

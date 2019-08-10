@@ -41,6 +41,8 @@ vivid_server <- function(){
 
     add_gizmo_server_hook(input, output, session, "load_package_data","load_package_data")
 
+    add_gizmo_server_hook(input, output, session, "datatables","datatables")
+
     make_menu()
     did <- add_new_document("Untitled")
     set_active_document(did)
