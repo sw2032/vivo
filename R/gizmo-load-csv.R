@@ -26,10 +26,8 @@ gizmo_load_csv_server <- function(input, output, session, state=NULL){
   observeEvent(input$load_csv_local,{
     dir <- shinyFiles::parseFilePaths(volumes, input$load_csv_local)
     if(nrow(dir) > 0){
-      message(dir$datapath)
+      #message(dir$datapath) #debug only
       updateTextInput(session, "load_csv", value=dir$datapath)
-    }else{
-
     }
 
   })
