@@ -3,11 +3,7 @@ gizmo_load_csv_ui <- function(ns){
   fluidPage(h4("Load csv: Load a csv into global environment"),
             fluidRow(
               column(4,textInput(ns("load_csv_name"), "csv name","biostats")),
-              column(8)
-			),
-			fluidRow(
-			  column(8, textInput(ns("load_csv_local_path"), "csv local", "NA", width = "100%")),
-              column(4, shinyFiles::shinyFilesButton(ns("load_csv_local"), "Load csv (Local)", "Select .csv file", FALSE)),
+              column(8, shinyFiles::shinyFilesButton(ns("load_csv_local"), "Load csv (Local)", "Select .csv file", FALSE)),
               column(12, textInput(ns("load_csv"), "csv url","https://people.sc.fsu.edu/~jburkardt/data/csv/biostats.csv", width = "100%"))
             )
   )
@@ -31,7 +27,7 @@ gizmo_load_csv_server <- function(input, output, session, state=NULL){
     dir <- shinyFiles::parseFilePaths(volumes, input$load_csv_local)
     if(nrow(dir) > 0){
       message(dir$datapath)
-      updateTextInput(session, "load_csv_local_path", value=dir$datapath)
+      updateTextInput(session, "load_csv", value=dir$datapath)
     }else{
 
     }
