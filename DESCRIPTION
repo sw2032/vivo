@@ -4,7 +4,7 @@ Version: 0.0.1
 Author: University of California, Los Angeles
 Description: A learning tool for R under construction
 License: NA
-Imports: shiny, parallel, shinyFiles, ipc, shinyjs, kableExtra, miniUI, later, bsplus, shinyWidgets, magrittr, rmarkdown, esquisse, ggplot2, ggthemes, plotly, shinyTree, ggridges, DT
+Imports: shiny, parallel, shinyFiles, ipc, shinyjs, kableExtra, miniUI, later, bsplus, shinyWidgets, magrittr, rmarkdown, esquisse, ggplot2, ggthemes, plotly, shinyTree, ggridges, DT, rio
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1

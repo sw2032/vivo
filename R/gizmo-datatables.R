@@ -48,9 +48,8 @@ gizmo_datatables_server <- function(input, output, session, state=NULL){
 
   # RMarkdown Code
   txt_react <- reactive({
-    txt <- paste0("<!-- user may enter a string into global environment -->", "\n",
-                  "```{r} \n",
-                  #input[["datatables_object"]]," <- ", "'", input[["datatables"]] , "'" , "\n",
+    txt <- paste0("```{r} \n",
+				  "DT::datatable(",input[["datatables_object"]] , ")\n",
                   "```\n")
     txt
   })
