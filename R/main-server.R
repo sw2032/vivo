@@ -60,6 +60,8 @@ vivid_server <- function(){
 	
 	add_gizmo_server_hook(input, output, session, "stats_min","stats_min")	
 	
+	add_gizmo_server_hook(input, output, session, "stats_sd","stats_sd")
+	
     add_gizmo_server_hook(input, output, session, "scatter_3d","scatter_3d")
 
     add_gizmo_server_hook(input, output, session, "dynamicui","dynamicui")

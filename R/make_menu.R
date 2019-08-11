@@ -78,6 +78,10 @@ make_menu <- function(){
                 "Min",
                 "vivid_menu_analysis")
 				
+  add_menu_item("stats_sd",
+                "Standard Deviation",
+                "vivid_menu_analysis")
+				
   ########VIEW I/O########
 				
   add_menu_item("scatter_3d",
