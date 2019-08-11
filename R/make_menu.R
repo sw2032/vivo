@@ -66,6 +66,14 @@ make_menu <- function(){
                 "Mean",
                 "vivid_menu_analysis")
 				
+  add_menu_item("stats_max",
+                "Max",
+                "vivid_menu_analysis")
+				
+  add_menu_item("stats_min",
+                "Min",
+                "vivid_menu_analysis")
+				
   ########DOCS I/O########
   add_menu_item("newvdoc",
                 "New Document",

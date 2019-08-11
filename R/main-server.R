@@ -53,6 +53,10 @@ vivid_server <- function(){
     add_gizmo_server_hook(input, output, session, "helloworld","helloworld")
 	
 	add_gizmo_server_hook(input, output, session, "stats_mean","stats_mean")
+	
+	add_gizmo_server_hook(input, output, session, "stats_max","stats_max")
+	
+	add_gizmo_server_hook(input, output, session, "stats_min","stats_min")
 
     make_menu()
     did <- add_new_document("Untitled")
