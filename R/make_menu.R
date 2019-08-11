@@ -100,6 +100,10 @@ make_menu <- function(){
                 "Histogram",
                 "vivid_menu_vis")
 				
+  add_menu_item("plot_plot",
+                "Line Graph",
+                "vivid_menu_vis")
+				
   add_menu_item("view_print",
                 "Print",
                 "vivid_menu_vis")
