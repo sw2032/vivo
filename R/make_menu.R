@@ -15,14 +15,6 @@ make_menu <- function(){
                 "R Markdown Block",
                 "vivid_menu_code")
 
-  add_menu_item("scatter_3d",
-                "3D Scatter Plot",
-                "vivid_menu_vis")
-
-  add_menu_item("dynamicui",
-                "Dynamic UI",
-                "vivid_menu_vis")
-
   ########DATA I/O########
   add_menu_item("input_string",
                 "Input String",
@@ -43,13 +35,13 @@ make_menu <- function(){
   add_menu_item("load_package_data",
                 "Load Package Data",
                 "vivid_menu_data")
-
-  add_menu_item("datatables",
-                "DataTables",
-                "vivid_menu_data")
 				
   add_menu_item("export_csv",
                 "Export csv",
+                "vivid_menu_data")
+				
+  add_menu_item("datatables",
+                "DataTables",
                 "vivid_menu_data")
 				
   add_menu_item("toss_coin",
@@ -85,6 +77,20 @@ make_menu <- function(){
   add_menu_item("stats_min",
                 "Min",
                 "vivid_menu_analysis")
+				
+  ########VIEW I/O########
+				
+  add_menu_item("scatter_3d",
+                "3D Scatter Plot",
+                "vivid_menu_vis")
+				
+  add_menu_item("dynamicui",
+                "Dynamic UI",
+                "vivid_menu_vis")	
+				
+  add_menu_item("plot_dotchart",
+                "Dotchart",
+                "vivid_menu_vis")	
 				
   ########DOCS I/O########
   add_menu_item("newvdoc",

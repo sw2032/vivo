@@ -26,13 +26,9 @@ vivid_server <- function(){
 
     add_gizmo_server_hook(input, output, session, "wrangle_data","wrangle_data")
 
-    add_gizmo_server_hook(input, output, session, "scatter_3d","scatter_3d")
-
     add_gizmo_server_hook(input, output, session, "markdown_block","markdown_block")
 	
 	add_gizmo_server_hook(input, output, session, "script_block","script_block")
-
-    add_gizmo_server_hook(input, output, session, "dynamicui","dynamicui")
 
     add_gizmo_server_hook(input, output, session, "input_string","input_string")
 
@@ -62,7 +58,13 @@ vivid_server <- function(){
 	
 	add_gizmo_server_hook(input, output, session, "stats_max","stats_max")
 	
-	add_gizmo_server_hook(input, output, session, "stats_min","stats_min")
+	add_gizmo_server_hook(input, output, session, "stats_min","stats_min")	
+	
+    add_gizmo_server_hook(input, output, session, "scatter_3d","scatter_3d")
+
+    add_gizmo_server_hook(input, output, session, "dynamicui","dynamicui")
+	
+	add_gizmo_server_hook(input, output, session, "plot_dotchart","plot_dotchart")
 
     make_menu()
     did <- add_new_document("Untitled")
