@@ -92,6 +92,10 @@ make_menu <- function(){
                 "Dotchart",
                 "vivid_menu_vis")	
 				
+  add_menu_item("plot_barplot",
+                "Barplot",
+                "vivid_menu_vis")
+				
   add_menu_item("view_print",
                 "Print",
                 "vivid_menu_vis")
