@@ -2,25 +2,19 @@
 gizmo_stats_mean_ui <- function(ns){
   fluidPage(h4("Mean: A Stats Tool"),
             fluidRow(
-              column(4,textInput(ns("stats_mean_name"), "Assigned to name ...", "biostats_Age_mean")),
-              column(4,checkboxInput(ns("stats_mean_auto"), "auto generate name", value = TRUE))
+              column(4,textInput(ns("stats_mean_name"), "Assigned to ...", "biostats_Age_mean")),
+              column(4,checkboxInput(ns("stats_mean_auto"), "auto generate name", value = FALSE, width = NULL))
             ),
             fluidRow(
-              column(4,textInput(ns("stats_mean_df"), "Enter data.frame or matrix", "biostats")),
-              column(4,textInput(ns("stats_mean_col"), "Enter column", "Age"))
+              column(4,textInput(ns("stats_mean_df"), "Enter data.frame or matrix, or Enter vector", "biostats")),
+              column(4,textInput(ns("stats_mean_col"), "Enter column, if data.frame or matrix", "Age"))
             )
   )
 }
 
 gizmo_stats_mean_server <- function(input, output, session, state=NULL){
 
-
-  obsB <- observeEvent(c(input$stats_mean_df, input$stats_mean_col, input$stats_mean_name),{
-    if(input[["stats_mean_auto"]]){
-	   message("B")
-      updateTextInput(session, "stats_mean_name", value=paste0(input[["stats_mean_df"]], "_", input[["stats_mean_col"]],"_stats_mean"))
-    }
-  }, ignoreInit=TRUE, suspended=TRUE)
+  initi <- reactiveValues(initing=TRUE)
 
   # Restore UI state
   if (!is.null(state)) {
@@ -29,19 +23,35 @@ gizmo_stats_mean_server <- function(input, output, session, state=NULL){
       updateTextInput(session, "stats_mean_df", value=state$stats_mean_df)
       updateTextInput(session, "stats_mean_col", value=state$stats_mean_col)
       updateTextInput(session, "stats_mean_name", value=state$stats_mean_name)
-	  obsB$resume() #observeEvent resumes after loading states
-	  message("A")
+      initi$initing=FALSE
     })
   }else{
-	obsB$resume()
+    updateCheckboxInput(session, "stats_mean_auto", value=TRUE)
+    initi$initing=FALSE
   }
-    
+
+  observeEvent(c(input$stats_mean_df, input$stats_mean_col, input$stats_mean_name, input$stats_mean_auto),{
+    if(initi$initing==FALSE){
+      if(input[["stats_mean_auto"]]){
+        if(TRUE){
+
+        }else{
+
+        }
+        stringresult=paste0(input[["stats_mean_df"]], "_", input[["stats_mean_col"]],"_stats_mean")
+        updateTextInput(session, "stats_mean_name", value=stringresult)
+      }
+    }
+  }, ignoreInit=TRUE)
 
   # RMarkdown Code
   txt_react <- reactive({
     txt <- paste0("```{r} \n",
-                  "print(", input[["stats_mean_df"]], "[['", input[["stats_mean_col"]], "']]", ")\n",
-                  input[["stats_mean_name"]], " <- mean(", input[["stats_mean_df"]], "[['", input[["stats_mean_col"]], "']]", ")\n",
+                  if( isTRUE(stringr:::str_length(input[["stats_mean_col"]])>0) ){
+                    paste0(input[["stats_mean_name"]], " <- mean(", input[["stats_mean_df"]], "[['", input[["stats_mean_col"]], "']]", ")\n")
+                  }else{
+                    paste0(input[["stats_mean_name"]], " <- mean(", input[["stats_mean_df"]], ")\n")
+                  },
                   "print(", input[["stats_mean_name"]], ")\n",
                   "```\n")
     txt
