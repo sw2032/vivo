@@ -78,6 +78,8 @@ vivid_server <- function(){
 	
 	add_gizmo_server_hook(input, output, session, "plot_boxplot","plot_boxplot")
 	
+	add_gizmo_server_hook(input, output, session, "view_normal","view_normal")
+	
 	add_gizmo_server_hook(input, output, session, "view_print","view_print")
 
     make_menu()

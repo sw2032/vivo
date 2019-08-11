@@ -120,6 +120,10 @@ make_menu <- function(){
                 "Boxplot",
                 "vivid_menu_vis")
 				
+  add_menu_item("view_normal",
+                "Normal Dist.",
+                "vivid_menu_vis")
+				
   add_menu_item("view_print",
                 "Print",
                 "vivid_menu_vis")
