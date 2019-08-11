@@ -14,7 +14,7 @@ gizmo_roll_dice_server <- function(input, output, session, state=NULL){
   if (!is.null(state)) {
     session$onFlushed(function() {
       updateTextInput(session, "roll_dice_name", value=state$roll_dice_name)
-      updateTextInput(session, "roll_dice", value=state$roll_dice)
+      updateNumericInput(session, "roll_dice", value=state$roll_dice)
     })
   }
 

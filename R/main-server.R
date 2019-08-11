@@ -37,6 +37,8 @@ vivid_server <- function(){
     add_gizmo_server_hook(input, output, session, "input_string","input_string")
 
     add_gizmo_server_hook(input, output, session, "input_number","input_number")
+	
+	add_gizmo_server_hook(input, output, session, "input_vector","input_vector")
 
     add_gizmo_server_hook(input, output, session, "load_csv","load_csv")
 

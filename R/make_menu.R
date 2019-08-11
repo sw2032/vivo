@@ -31,6 +31,10 @@ make_menu <- function(){
   add_menu_item("input_number",
                 "Input Number",
                 "vivid_menu_data")
+				
+  add_menu_item("input_vector",
+                "Input Vector",
+                "vivid_menu_data")
 
   add_menu_item("load_csv",
                 "Load csv",

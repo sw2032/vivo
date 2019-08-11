@@ -14,7 +14,7 @@ gizmo_toss_coin_server <- function(input, output, session, state=NULL){
   if (!is.null(state)) {
     session$onFlushed(function() {
       updateTextInput(session, "toss_coin_name", value=state$toss_coin_name)
-      updateTextInput(session, "toss_coin", value=state$toss_coin)
+      updateNumericInput(session, "toss_coin", value=state$toss_coin)
     })
   }
 
