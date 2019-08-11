@@ -21,6 +21,8 @@ gizmo_input_vector_ui <- function(ns){
 
 gizmo_input_vector_server <- function(input, output, session, state=NULL){
 
+  initi <- reactiveValues(initing=TRUE)
+  
   # Restore UI state
   if (!is.null(state)) {
     session$onFlushed(function() {
@@ -28,7 +30,10 @@ gizmo_input_vector_server <- function(input, output, session, state=NULL){
       updateNumericInput(session, "input_vector_length", value=state$input_vector_length)
       updateRadioButtons(session, "input_vector_type", selected=state$input_vector_type)
       updateTextInput(session, "input_vector", value=state$input_vector)
+	  initi$initing=FALSE
     })
+  }else{
+    initi$initing=FALSE
   }
 
   output$input_vector_field <- renderUI({
@@ -38,21 +43,24 @@ gizmo_input_vector_server <- function(input, output, session, state=NULL){
           lapply(
             X = 1:input$input_vector_length,
             FUN = function(x){
-              column(2,textInput(session$ns(paste0("input_vector_element_",x)), paste0("Input Vector Element ",x),x, width="100%"))
+			  R=sample(-100:100, 1)
+              column(2,textInput(session$ns(paste0("input_vector_element_",x)), paste0("Input Vector Element ",x), R, width="100%"))
             }
           )
         }else if(input[["input_vector_type"]]=='string'){
           lapply(
             X = 1:input$input_vector_length,
             FUN = function(x){
-              column(2,textInput(session$ns(paste0("input_vector_element_",x)), paste0("Input Vector Element ",x), paste0("str",x), width="100%"))
+			  R=paste0("str",x)
+              column(2,textInput(session$ns(paste0("input_vector_element_",x)), paste0("Input Vector Element ",x), R, width="100%"))
             }
           )
         }else if(input[["input_vector_type"]]=='bool'){
           lapply(
             X = 1:input$input_vector_length,
             FUN = function(x){
-              column(2,textInput(session$ns(paste0("input_vector_element_",x)), paste0("Input Vector Element ",x), TRUE, width="100%"))
+			  R=sample(c(TRUE, FALSE),1)
+              column(2,textInput(session$ns(paste0("input_vector_element_",x)), paste0("Input Vector Element ",x), R, width="100%"))
             }
           )
         }
@@ -101,31 +109,41 @@ gizmo_input_vector_server <- function(input, output, session, state=NULL){
 
   # Get UI state
   get_state <- function(){
+    input_vector_element <- if(isTRUE(!is.null(input[["input_vector_length"]])) && isTRUE(input[["input_vector_length"]] > 0)){
+      sapply(
+        X = 1:input$input_vector_length,
+        FUN = function(x){
+          input[[paste0("input_vector_element_",x)]]
+        }
+      )}else{
+        NULL
+      }
+      list(
+        input_vector=input[["input_vector"]],
+        input_vector_length=input[["input_vector_length"]],
+        input_vector_type=input[["input_vector_type"]],
+        input_vector_name=input[["input_vector_name"]],
+		'input_vector_element'=input_vector_element,
+        `__version__` = "0.0.1"
+      )
+    }
+
     list(
-      input_vector=input[["input_vector"]],
-      input_vector_length=input[["input_vector_length"]],
-      input_vector_type=input[["input_vector_type"]],
-      input_vector_name=input[["input_vector_name"]],
-      `__version__` = "0.0.1"
+      code=txt_react,
+      get_state=get_state
     )
   }
 
-  list(
-    code=txt_react,
-    get_state=get_state
+
+  .globals$gizmos$input_vector <- list(
+    ui=gizmo_input_vector_ui,
+    server=gizmo_input_vector_server,
+    library="vivid",
+    opts=list()
   )
-}
 
 
-.globals$gizmos$input_vector <- list(
-  ui=gizmo_input_vector_ui,
-  server=gizmo_input_vector_server,
-  library="vivid",
-  opts=list()
-)
-
-
-#' run_gizmo_input_vector with run_standalone
-#'
-#' @export
-run_gizmo_input_vector <- function() run_standalone("input_vector")
+  #' run_gizmo_input_vector with run_standalone
+  #'
+  #' @export
+  run_gizmo_input_vector <- function() run_standalone("input_vector")
