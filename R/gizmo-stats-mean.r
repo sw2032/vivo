@@ -7,7 +7,8 @@ gizmo_stats_mean_ui <- function(ns){
             ),
             fluidRow(
               column(4,textInput(ns("stats_mean_df"), "Enter data.frame or matrix, or Enter vector", "biostats")),
-              column(4,textInput(ns("stats_mean_col"), "Enter column, if data.frame or matrix", "Age"))
+              column(4,textInput(ns("stats_mean_col"), "Enter column, if data.frame or matrix", "Age")),
+              column(4,actionButton(ns("stats_mean_goButton"), "Select Tool ..."))
             )
   )
 }
@@ -43,6 +44,40 @@ gizmo_stats_mean_server <- function(input, output, session, state=NULL){
       }
     }
   }, ignoreInit=TRUE)
+  
+ # Select Tool
+  observeEvent(input$stats_mean_goButton, {
+    d <- modalDialog(
+      title="Select ... from .GlobalEnv",
+      size="l",
+      tags$div(
+        fluidRow(
+          column(4,selectInput(session$ns("stats_mean_dfA"),"Enter data.frame or matrix, or Enter vector, or Enter scalar", as.vector(ls(envir=.GlobalEnv)) )),
+          column(4,selectInput(session$ns("stats_mean_colA"), "Enter column, if data.frame or matrix", c() )),
+          column(4,tags$div())
+        )
+      ),
+      footer = tagList(
+        modalButton("Cancel"),
+        actionButton(session$ns("stats_mean_goButton_ok"), "OK")
+      )
+    )
+    showModal(d)
+  })
+
+  observeEvent(input$stats_mean_goButton_ok,{
+    updateTextInput(session, "stats_mean_df", value=input$stats_mean_dfA)
+    updateTextInput(session, "stats_mean_col", value=input$stats_mean_colA)
+    removeModal()
+  })
+
+  observeEvent(input$stats_mean_dfA,{
+    if( isTRUE(stringr:::str_length(input[["stats_mean_dfA"]])>0) && !isTRUE(is.null(names(.GlobalEnv[[input$stats_mean_dfA]])))){
+      updateSelectInput(session, "stats_mean_colA", choices =as.vector(names(.GlobalEnv[[input$stats_mean_dfA]])),  selected = character(0))
+    }else{
+      updateSelectInput(session, "stats_mean_colA", choices = character(0), selected = character(0) )
+    }
+  }, ignoreInit=FALSE)
 
   # RMarkdown Code
   txt_react <- reactive({
