@@ -104,6 +104,10 @@ make_menu <- function(){
                 "Points/Lines Graph",
                 "vivid_menu_vis")
 				
+  add_menu_item("plot_scatter",
+                "Scatter Graph",
+                "vivid_menu_vis")
+				
   add_menu_item("view_print",
                 "Print",
                 "vivid_menu_vis")

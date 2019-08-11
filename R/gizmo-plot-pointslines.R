@@ -1,6 +1,6 @@
 
 gizmo_plot_pointslines_ui <- function(ns){
-  fluidPage(h4("Line Graph: A Plot Tool"),
+  fluidPage(h4("Points/Lines Graph: A Plot Tool"),
             fluidRow(
               column(4,textInput(ns("plot_pointslines_name"), "Assigned to ...", "biostats_Age_hist")),
               column(4,checkboxInput(ns("plot_pointslines_auto"), "auto generate name", value = FALSE, width = NULL)),
