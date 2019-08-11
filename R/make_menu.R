@@ -82,6 +82,10 @@ make_menu <- function(){
                 "Standard Deviation",
                 "vivid_menu_analysis")
 				
+  add_menu_item("stats_scale",
+                "Z-Score",
+                "vivid_menu_analysis")
+				
   ########VIEW I/O########
 				
   add_menu_item("scatter_3d",
