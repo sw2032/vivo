@@ -3,7 +3,11 @@ gizmo_plot_plot_ui <- function(ns){
   fluidPage(h4("Line Graph: A Plot Tool"),
             fluidRow(
               column(4,textInput(ns("plot_plot_name"), "Assigned to ...", "biostats_Age_hist")),
-              column(4,checkboxInput(ns("plot_plot_auto"), "auto generate name", value = FALSE, width = NULL))
+              column(4,checkboxInput(ns("plot_plot_auto"), "auto generate name", value = FALSE, width = NULL)),
+			  column(4,radioButtons(ns("plot_plot_type"), "how to present data ...",
+                                    c("points" = "p",
+                                      "lines" = "l",
+                                      "both points and lines" = "o"), inline=TRUE ))
             ),
             fluidRow(
               column(4,textInput(ns("plot_plot_df"), "Enter data.frame or matrix, or Enter vector", "biostats")),
@@ -44,6 +48,7 @@ gizmo_plot_plot_server <- function(input, output, session, state=NULL){
       updateTextInput(session, "plot_plot_df", value=state$plot_plot_df)
       updateTextInput(session, "plot_plot_col", value=state$plot_plot_col)
       updateTextInput(session, "plot_plot_name", value=state$plot_plot_name)
+	  updateRadioButtons(session, "plot_plot_type", selected=state$plot_plot_type)
       updateTextInput(session, "plot_plot_main", value=state$plot_plot_main)
       updateTextInput(session, "plot_plot_sub", value=state$plot_plot_sub)
       updateTextInput(session, "plot_plot_xlab", value=state$plot_plot_xlab)
@@ -78,6 +83,11 @@ gizmo_plot_plot_server <- function(input, output, session, state=NULL){
                          }else{
                            ""
                          },
+                         if(isTRUE(stringr:::str_length(input[["plot_plot_type"]])>0) && !isTRUE(input[["plot_plot_type"]]=='p')){
+                           paste0(", type='", input[["plot_plot_type"]], "'" )
+                         }else{
+                           ""
+                         },  
                          if(isTRUE(stringr:::str_length(input[["plot_plot_main"]])>0)){
                            paste0(", main='", input[["plot_plot_main"]], "'" )
                          }else{
@@ -111,6 +121,7 @@ gizmo_plot_plot_server <- function(input, output, session, state=NULL){
       plot_plot_df=input[["plot_plot_df"]],
       plot_plot_col=input[["plot_plot_col"]],
       plot_plot_main=input[["plot_plot_main"]],
+	  plot_plot_type=input[["plot_plot_type"]],
       plot_plot_sub=input[["plot_plot_sub"]],
       plot_plot_xlab=input[["plot_plot_xlab"]],
       plot_plot_ylab=input[["plot_plot_ylab"]],
