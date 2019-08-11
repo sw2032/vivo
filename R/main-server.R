@@ -54,6 +54,10 @@ vivid_server <- function(){
 	
 	add_gizmo_server_hook(input, output, session, "stats_mean","stats_mean")
 	
+	add_gizmo_server_hook(input, output, session, "stats_median","stats_median")
+	
+	add_gizmo_server_hook(input, output, session, "stats_mode","stats_mode")
+	
 	add_gizmo_server_hook(input, output, session, "stats_max","stats_max")
 	
 	add_gizmo_server_hook(input, output, session, "stats_min","stats_min")

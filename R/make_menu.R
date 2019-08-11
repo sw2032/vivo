@@ -66,6 +66,14 @@ make_menu <- function(){
                 "Mean",
                 "vivid_menu_analysis")
 				
+  add_menu_item("stats_median",
+                "Median",
+                "vivid_menu_analysis")
+				
+  add_menu_item("stats_mode",
+                "Mode",
+                "vivid_menu_analysis")
+				
   add_menu_item("stats_max",
                 "Max",
                 "vivid_menu_analysis")
