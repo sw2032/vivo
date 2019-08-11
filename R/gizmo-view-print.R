@@ -8,7 +8,8 @@ gizmo_view_print_ui <- function(ns){
             ),
             fluidRow(
               column(4,textInput(ns("view_print_df"), "Enter data.frame or matrix, or Enter vector, or Enter scalar", "biostats")),
-              column(4,textInput(ns("view_print_col"), "Enter column, if data.frame or matrix", "Age"))
+              column(4,textInput(ns("view_print_col"), "Enter column, if data.frame or matrix", "Age")),
+              column(4,actionButton(ns("view_print_goButton"), "Select Tool ..."))
             )
   )
 }
@@ -44,6 +45,41 @@ gizmo_view_print_server <- function(input, output, session, state=NULL){
       }
     }
   }, ignoreInit=TRUE)
+
+ # Select Tool
+  observeEvent(input$view_print_goButton, {
+    d <- modalDialog(
+      title="Select ... from .GlobalEnv",
+      size="l",
+      tags$div(
+        fluidRow(
+          column(4,selectInput(session$ns("view_print_dfA"),"Enter data.frame or matrix, or Enter vector, or Enter scalar", as.vector(ls(envir=.GlobalEnv)) )),
+          column(4,selectInput(session$ns("view_print_colA"), "Enter column, if data.frame or matrix", c() )),
+          column(4,tags$div())
+        )
+      ),
+      footer = tagList(
+        modalButton("Cancel"),
+        actionButton(session$ns("view_print_goButton_ok"), "OK")
+      )
+    )
+    showModal(d)
+  })
+
+  observeEvent(input$view_print_goButton_ok,{
+    updateTextInput(session, "view_print_df", value=input$view_print_dfA)
+    updateTextInput(session, "view_print_col", value=input$view_print_colA)
+    removeModal()
+  })
+
+  observeEvent(input$view_print_dfA,{
+    if( isTRUE(stringr:::str_length(input[["view_print_dfA"]])>0) && !isTRUE(is.null(names(.GlobalEnv[[input$view_print_dfA]])))){
+      updateSelectInput(session, "view_print_colA", choices =as.vector(names(.GlobalEnv[[input$view_print_dfA]])),  selected = character(0))
+    }else{
+      updateSelectInput(session, "view_print_colA", choices = character(0), selected = character(0) )
+    }
+  }, ignoreInit=FALSE)
+
 
   # RMarkdown Code
   txt_react <- reactive({
