@@ -2,7 +2,7 @@
 gizmo_plot_dotchart_ui <- function(ns){
   fluidPage(h4("Dotchart: A Plot Tool"),
             fluidRow(
-              column(4,textInput(ns("plot_dotchart_name"), "Assigned to ...", "biostats_Age_mean")),
+              column(4,textInput(ns("plot_dotchart_name"), "Assigned to ...", "biostats_Age_dotchart")),
               column(4,checkboxInput(ns("plot_dotchart_auto"), "auto generate name", value = FALSE, width = NULL))
             ),
             fluidRow(

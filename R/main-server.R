@@ -65,6 +65,8 @@ vivid_server <- function(){
     add_gizmo_server_hook(input, output, session, "dynamicui","dynamicui")
 	
 	add_gizmo_server_hook(input, output, session, "plot_dotchart","plot_dotchart")
+	
+	add_gizmo_server_hook(input, output, session, "view_print","view_print")
 
     make_menu()
     did <- add_new_document("Untitled")
