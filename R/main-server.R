@@ -66,7 +66,7 @@ vivid_server <- function(){
 	
 	add_gizmo_server_hook(input, output, session, "plot_dotchart","plot_dotchart")
 	
-	add_gizmo_server_hook(input, output, session, "plot_plot","plot_plot")
+	add_gizmo_server_hook(input, output, session, "plot_pointslines","plot_pointslines")
 	
 	add_gizmo_server_hook(input, output, session, "plot_hist","plot_hist")
 	
