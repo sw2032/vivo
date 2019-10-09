@@ -1,7 +1,7 @@
 #' gen_uuid
-#' 
+#'
 #' generate strings such as "56055f16ac9c84019a0dc9cb88d76e"
-#' 
+#'
 #' @export
 
 gen_uuid <- function(){
@@ -9,9 +9,9 @@ gen_uuid <- function(){
 }
 
 #' vid_fun
-#' 
+#'
 #' generate uuid function
-#' 
+#'
 #' @param uuid takes strings such as "56055f16ac9c84019a0dc9cb88d76e"
 #' @export
 
@@ -31,9 +31,9 @@ geval <- local(function(expr, uuid, substitute = FALSE, envir = .GlobalEnv, encl
 })
 
 #' gevalQ
-#' 
+#'
 #' function gevalQ
-#' 
+#'
 #' @export
 
 gevalQ <- local(function(expr, uuid, queue, substitute = FALSE, envir = .GlobalEnv, enclos = baseenv(), ...) {
@@ -78,14 +78,14 @@ vivid_globals <- function(){
 format_vars <- function(vars){
   paste0(vars, collapse = ", ")
 }
-
+#' @export
 texasCi <- function(){
   library(shinyTree)
   library(ggplot2)
-  
+
   envirs=base::search()
   Tree0s=NULL;Traa0s=NULL
-  
+
   l1stopened=TRUE
   for (envir in envirs) {
     pkgname=envir
@@ -98,8 +98,8 @@ texasCi <- function(){
     for (dd in dds) {
       Tree2s=NULL;Traa2s=NULL
       if(substr(envir,1,8)=="package:"){
-        TreeA=list() 
-		TreeAt=list()		
+        TreeA=list()
+		TreeAt=list()
         eval(parse(text=paste0("TreeA=(names(",pkgname,"::", dd,"))")))
 		eval(parse(text=paste0("TreeAt=(sapply(",pkgname,"::", dd,", class))")))
         for (kk in 1:length(TreeA)){
@@ -108,11 +108,11 @@ texasCi <- function(){
           eval(parse(text=paste0("Tree2s=c(Tree2s, '",Treea,"'=list(structure(\"",Treea,"\",sticon=' fa fa-tag fa-tag-",checkintype(Treeat),"',dt='",checkintype(Treeat),"')))"))) #,stopened=TRUE
         }
       } else if (substr(envir,1,6)=="tools:"){
-        
+
       } else if (envir==".GlobalEnv"){
         TreeA=list()
-		TreeAt=list() 
-        
+		TreeAt=list()
+
         eval(parse(text=paste0("TreeA=(names(",".GlobalEnv","$", dd,"))")))
 		eval(parse(text=paste0("TreeAt=(sapply(",".GlobalEnv","$", dd,", class))")))
         #TreeA=datasets()
@@ -121,18 +121,18 @@ texasCi <- function(){
 		   Treeat=TreeAt[kk]
           eval(parse(text=paste0("Tree2s=c(Tree2s, '",Treea,"'=list(structure(\"",Treea,"\",sticon=' fa fa-tag fa-tag-",checkintype(Treeat),"',dt='",checkintype(Treeat),"')))"))) #,stopened=TRUE
         }
-      }			
+      }
       if(length(Tree2s)){
 		eval(parse(text=paste0("Tree1s=c(Tree1s,'",dd,"'=list(structure(Tree2s,sttype='df-node',sticon='tags',stopened=",toString(l2stopened),")))")))
 		eval(parse(text=paste0("Traa1s=c(Traa1s,'",dd,"'=list(structure('",dd,"',sticon='tags',stopened=",toString(TRUE),")))")))
 		l2stopened=FALSE
-	  }	  
+	  }
     }
     if(length(Tree1s)){
 	  eval(parse(text=paste0("Tree0s=c(Tree0s,'",pkgname,"'=list(structure(Tree1s,sttype='pkg-node',sticon='fas fa-box',stopened=",toString(l1stopened),")))")))
 	  eval(parse(text=paste0("Traa0s=c(Traa0s,'",pkgname,"'=list(structure(Traa1s,sttype='pkg-node',sticon='fas fa-box',stopened=",toString(TRUE),")))")))
 	  l1stopened=FALSE
-	}	
+	}
   }
   result=list()
   result$Tree0s=Tree0s
